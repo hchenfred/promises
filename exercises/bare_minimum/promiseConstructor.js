@@ -7,6 +7,7 @@
 var fs = require('fs');
 var request = require('request');
 var Promise = require('bluebird');
+var https = require('https');
 
 // This function should retrieve the first line of the file at `filePath`
 var pluckFirstLineFromFileAsync = function(filePath) {
@@ -26,6 +27,14 @@ var pluckFirstLineFromFileAsync = function(filePath) {
 // This function should retrieve the status code of a GET request to `url`
 var getStatusCodeAsync = function(url) {
   // TODO
+  return new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      resolve(res.statusCode);
+    }).on('error', (err) => {
+      err.message = 'Invalid URI';
+      reject(err);
+    });
+  });
 };
 
 // Export these functions so we can test them and reuse them in later exercises
