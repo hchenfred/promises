@@ -11,30 +11,31 @@ var https = require('https');
 
 // This function should retrieve the first line of the file at `filePath`
 var pluckFirstLineFromFileAsync = function(filePath) {
-  // TODO
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) {
         reject(err);
       } else {
-        var urlArray = data.split('\n');
-        resolve(urlArray[0]);        
+        var firstLine = data.split('\n')[0];
+        resolve(firstLine);
       }
     });
+
   });
 };
 
 // This function should retrieve the status code of a GET request to `url`
 var getStatusCodeAsync = function(url) {
-  // TODO
   return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
-      resolve(res.statusCode);
-    }).on('error', (err) => {
-      err.message = 'Invalid URI';
-      reject(err);
+    request(url, (err, response) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(response.statusCode);
+      }
     });
   });
+  
 };
 
 // Export these functions so we can test them and reuse them in later exercises

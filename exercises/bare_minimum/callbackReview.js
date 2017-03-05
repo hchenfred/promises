@@ -24,7 +24,6 @@ var getStatusCode = function (url, callback) {
       err.message = 'Invalid URI';
       callback(err, null);
     } else {
-      console.log(response.statusCode);
       callback(null, response.statusCode);
     } 
   });
