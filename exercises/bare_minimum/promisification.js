@@ -45,7 +45,6 @@ var generateRandomTokenAsync = Promise.promisify(generateRandomToken); // TODO
 var readFileAndMakeItFunny = function(filePath, callback) {
   fs.readFile(filePath, 'utf8', function(err, file) {
     if (err) {
-      console.log('error thrown');
       return callback(err, null); 
     }
     
@@ -54,7 +53,6 @@ var readFileAndMakeItFunny = function(filePath, callback) {
         return line + ' lol';
       })
       .join('\n');
-    console.log(funnyFile);
     callback(null, funnyFile);
   });
 };
